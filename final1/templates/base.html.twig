@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Project Seminar {% endblock %}</title>
+</head>
+<body>
+<table>
+    <tr>
+        {% if isAuth %}
+            <td>
+                {{ login }}
+            </td>
+            <td>
+                <form action="/logout" method="post">
+                    <button type="submit">Logout</button>
+                </form>
+            </td>
+        {% else %}
+            <td>
+                <form action="/get-login" method="get">
+                    <button type="submit">Login</button>
+                </form>
+            </td>
+        {% endif %}
+        <td>
+            <form action="/get-products">
+                <button type="submit">Products</button>
+            </form>
+        </td>
+    </tr>
+</table>
+{% block body %} {% endblock %}
+</body>
+</html>

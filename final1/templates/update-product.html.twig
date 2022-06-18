@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Обновление продукта {% endblock %}
+
+{% block body %}
+    {% if product is not null %}
+
+        Обновление информации о продукте с id = {{ product.id }}
+        <br>
+        {% if message is not empty %}
+            <p style="color:#FF0000">{{ message }}</p>
+        {% endif %}
+        <br>
+
+        <form action="/update-product" method="post">
+            <table>
+                <tr>
+                    <td>
+                        <input type="hidden" name="id" value="{{ product.id }}">
+                        <label>
+                            Quality Control id <input type="text" name="quality_control_id" value="{{ product.quality_control_id }}">
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>
+                            supplier id <input type="text" name="supplier_id" value="{{ product.supplier_id }}">
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>
+                            category <input type="text" name="category" value="{{ product.category }}">
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>
+                            Price <input type="text" name="price" value="{{ product.price }}">
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="submit">Сохранить</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    {% else %}
+        По вашему запросу ничего не найдено
+    {% endif %}
+{% endblock %}

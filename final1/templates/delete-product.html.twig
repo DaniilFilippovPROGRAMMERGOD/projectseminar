@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Удаление машины {% endblock %}
+
+{% block body %}
+    Вы дествительно хотите машину книгу с id = {{ id }}
+
+    {% if message is not empty %}
+        <p style="color:#FF0000">{{ message }}</p>
+        <br>
+    {% endif %}
+
+    <table>
+        <tr>
+            <td>
+                <form action="/delete-product" method="post">
+                    <input name="id" value="{{ id }}" type="hidden">
+                    <button type="submit">Да</button>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form action="/get-products" method="get">
+                    <button type="submit">Нет</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

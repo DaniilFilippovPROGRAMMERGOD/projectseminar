@@ -1,0 +1,162 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} products {% endblock %}
+
+{% block body %}
+    <form action="/get-products">
+        <table>
+            <tr>
+                <td>product id</td>
+                <td>
+                    <label>
+                        <input type="text" name="product_id"/>
+                    </label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>category</td>
+                <td>
+                    <label>
+                        <input type="text" name="category"/>
+                    </label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Quality Control id</td>
+                <td>
+                    <label>
+                        <input type="text" name="tp_id"/>
+                    </label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Quantity Control state id</td>
+                <td>
+                    <label>
+                        <input type="text" name="tp_region"/>
+                    </label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>supplier id</td>
+                <td>
+                    <label>
+                        <input type="text" name="m_id"/>
+                    </label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>supplier name</td>
+                <td>
+                    <label>
+                        <input type="text" name="m_name"/>
+                    </label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Items per page</td>
+                <td>
+                    <label>
+                        <input type="text" name="items_per_page"/>
+                    </label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Page</td>
+                <td>
+                    <label>
+                        <input type="text" name="page_number"/>
+                    </label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <button type="submit">Search</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <br/>
+
+    <form action="/get-add-product" method="get">
+        <button type="submit">Создать Продукт</button>
+    </form>
+
+    <br/>
+
+    {% if products is not empty %}
+
+        <table>
+        <tr>
+            <td>product id</td>
+            <td>category</td>
+            <td>Price</td>
+            <td>Quality Control id</td>
+            <td>Quantity Control Country</td>
+            <td>Quantity Control region</td>
+            <td>Quantity Control License From</td>
+            <td>Quantity Control registration fee</td>
+            <td>supplier id</td>
+            <td>supplier name</td>
+            <td>supplier region</td>
+            <td>supplier Belivable</td>
+        </tr>
+    {% endif %}
+    {% for product in products %}
+        <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.quality_control.id }}</td>
+            <td>{{ product.quality_control.country }}</td>
+            <td>{{ product.quality_control.region }}</td>
+            <td>{{ product.quality_control.license_from }}</td>
+            <td>{{ product.quality_control.belivable }}</td>
+            <td>{{ product.supplier.id }}</td>
+            <td>{{ product.supplier.name }}</td>
+            <td>{{ product.supplier.region }}</td>
+            <td>{{ product.supplier.belivable }}</td>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <form action="/get-product" method="get">
+                                <input type="hidden" name="id" value="{{ product.id }}">
+                                <button type="submit">Просмотр</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <form action="/get-update-product" method="get">
+                                <input type="hidden" name="id" value="{{ product.id }}">
+                                <button type="submit">Редактировать</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <form action="/get-delete-product" method="get">
+                                <input type="hidden" name="id" value="{{ product.id }}">
+                                <button type="submit">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+    {% else %}
+        По вашему запросу ничего не найдено
+    {% endfor %}
+    </table>
+{% endblock %}

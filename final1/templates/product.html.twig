@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} product full info {% endblock %}
+
+{% block body %}
+
+    {% if product is not null %}
+        product:
+        <table>
+            <tr>
+                <td>
+                <form action="/get-update-product" method="get">
+                    <input name="id" type="hidden" value="{{ product.id }}">
+                    <button type="submit">Редактировать</button>
+                </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <form action="/get-delete-product" method="get">
+                        <input name="id" type="hidden" value="{{ product.id }}">
+                        <button type="submit">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+        <table style="outline: thin solid">
+            <tr>
+                <td>product id</td>
+                <td>{{ product.id }}</td>
+            </tr>
+            <tr>
+                <td>category</td>
+                <td>{{ product.category }}</td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td>{{ product.price }}</td>
+            </tr>
+        </table>
+      Quantity Control:
+        <table style="outline: thin solid">
+            <tr>
+                <td>id</td>
+                <td>{{ product.quality_control.id }}</td>
+            </tr>
+            <tr>
+                <td>Country</td>
+                <td>{{ product.quality_control.country }}</td>
+            </tr>
+            <tr>
+                <td>State id</td>
+                <td>{{ product.quality_control.region }}</td>
+            </tr>
+            <tr>
+                <td>License From</td>
+                <td>{{ product.quality_control.license_from }}</td>
+            </tr>
+        </table>
+
+        supplier:
+        <table style="outline: thin solid">
+            <tr>
+                <td>id</td>
+                <td>{{ product.supplier.id }}</td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>{{ product.supplier.name }}</td>
+            </tr>
+            <tr>
+                <td>Region</td>
+                <td>{{ product.supplier.region }}</td>
+            </tr>
+            <tr>
+                <td>Belivable</td>
+                <td>{{ product.supplier.belivable }}</td>
+            </tr>
+            <tr>
+                <td>License From</td>
+                <td>{{ product.supplier.license_from }}</td>
+            </tr>
+        </table>
+
+        products_sold:
+        {% for cs in product.products_sold %}<!-- для каждого элемента массивов отрисует хтмл внутри фора-->
+            <table style="outline: thin solid">
+                <tr>
+                    <td>id</td>
+                    <td>{{ cs.id }}</td>
+                </tr>
+                <tr>
+                    <td>Quantity</td>
+                    <td>{{ cs.quantity }}</td>
+                </tr>
+                <tr>
+                    <td>shopper id</td>
+                    <td>{{ cs.shopper.id }}</td>
+                </tr>
+                <tr>
+                    <td>shopper Belivable</td>
+                    <td>{{ cs.shopper.belivable }}</td>
+                </tr>
+                <tr>
+                    <td>shopper city</td>
+                    <td>{{ cs.shopper.city }}</td>
+                </tr>
+                <tr>
+                    <td>shopper is active</td>
+                    <td>{{ cs.shopper.is_active }}</td>
+                </tr>
+            </table>
+        {% else %}
+            Никто пока не покупал такой продукт
+        {% endfor %}
+
+    {% else %}
+        По вашему запросу ничего не найдено
+    {% endif %}
+{% endblock %}

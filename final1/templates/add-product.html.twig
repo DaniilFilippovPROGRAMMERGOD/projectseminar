@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create product{% endblock %}
+
+{% block body %}
+    {% if message is not empty %}
+        <p style="color:#FF0000">{{ message }}</p>
+    {% endif %}
+    <br>
+
+    <form action="/add-product" method="post">
+        <table>
+            <tr>
+                <td>
+                    <label>
+                        category <input type="text" name="category" value="{{ product.category }}">
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>
+                        Price <input type="text" name="price" value="{{ product.price }}">
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>
+                        Quality Control id <input type="text" name="quality_control_id" value="{{ product.quality_control_id }}">
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>
+                        supplier id <input type="text" name="supplier_id" value="{{ product.supplier_id }}">
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit">Добавить</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}
